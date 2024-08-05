@@ -3,40 +3,19 @@
 * @see https://v0.dev/t/wCMd6Ox71Zy
 */
 
-/** Add fonts into your Next.js project:
-
-import { Inter } from 'next/font/google'
-
-inter({
-  subsets: ['latin'],
-  display: 'swap',
-})
-**/
-"use client"
-
-import React, { useState } from "react"
-import { Navbar } from "@/components/Navbar"
 import { Communities } from "@/components/pages/Communities"
 import { Posts } from "@/components/pages/Posts"
-import DotPattern from "../DotPattern"
-import { cn } from "@/lib/utils"
+
+
 
 export function Homepage() {
-  const [isDarkMode, setIsDarkMode] = useState(false)
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <div className={`flex flex-col h-screen ${isDarkMode ? "dark" : ""}`}>
-      <Navbar />
-
-      {/* <DotPattern
-        className={cn(
-          "[mask-image:linear-gradient(to_bottom_left,white,transparent,transparent)] p-15",
-        )}
-      /> */}
+    // <div className={`flex flex-col h-screen ${isDarkMode ? "dark" : ""}`}>
+    <div className={`flex flex-col h-screen `}>
       
       <main className="flex-1 grid grid-cols-1 md:grid-cols-[300px_1fr] gap-6 p-6">
-        <div className={`md:sticky md:top-6 md:h-[calc(100vh-5rem)] ${isMenuOpen ? "block" : "hidden md:block"}`}>
+        <div className="md:sticky md:top-6 md:h-[calc(100vh-5rem)]">
           <div className="overflow-auto h-full pr-4 -mr-4">
             <Communities />
           </div>

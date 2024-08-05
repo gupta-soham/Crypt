@@ -5,11 +5,6 @@ export default function Home() {
     <main>
       
       <Homepage />
-      {/* <DotPattern
-        className={cn(
-          "[mask-image:linear-gradient(to_bottom_left,white,transparent,transparent)] ",
-        )}
-      /> */}
     </main>
   );
 }

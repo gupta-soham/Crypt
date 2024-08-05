@@ -1,14 +1,17 @@
 import React from "react";
-import { Button } from "@/ui/button";
-import { Avatar, AvatarImage, AvatarFallback } from "@/ui/avatar";
-import { Card, CardHeader, CardContent, CardFooter } from "@/ui/card";
+
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
 import {
-  FilterIcon,
-  ArrowUpIcon,
-  ArrowDownIcon,
-  MessageCircleIcon,
-  MoveHorizontalIcon,
-} from "@/components/Icons";
+  ArrowDown,
+  ArrowUp,
+  Filter,
+  MessageCircle,
+  MessageCircleReply,
+  MoveDiagonal,
+} from "lucide-react";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 type PostType = {
   content: string | JSX.Element;
@@ -22,7 +25,7 @@ export function Posts() {
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-bold">Trending</h2>
         <Button variant="ghost" size="icon">
-          <FilterIcon className="w-5 h-5" />
+          <Filter className="w-5 h-5" />
           <span className="sr-only">Filter</span>
         </Button>
       </div>
@@ -35,7 +38,7 @@ export function Posts() {
         />
         <Post
           content={
-            <img
+            <Image
               src="/placeholder.svg"
               width={400}
               height={225}
@@ -74,12 +77,8 @@ function Post({ content, timeAgo, upvotes, comments }: PostType) {
           </div>
         </div>
 
-        <Button
-          variant="ghost"
-          size="icon"
-          className="absolute top-2 right-2 rotate-45"
-        >
-          <MoveHorizontalIcon className="w-5 h-5" />
+        <Button variant="ghost" size="icon" className="absolute top-2 right-2">
+          <MoveDiagonal className="w-5 h-5" />
           <span className="sr-only">More</span>
         </Button>
       </CardHeader>
@@ -89,16 +88,16 @@ function Post({ content, timeAgo, upvotes, comments }: PostType) {
       </CardContent>
       <CardFooter className="flex items-center gap-4">
         <Button variant="ghost" size="icon">
-          <ArrowUpIcon className="w-5 h-5" />
+          <ArrowUp className="w-5 h-5" />
           <span className="sr-only">Upvote</span>
         </Button>
         <div className="text-sm text-muted-foreground">{upvotes} upvotes</div>
         <Button variant="ghost" size="icon">
-          <ArrowDownIcon className="w-5 h-5" />
+          <ArrowDown className="w-5 h-5" />
           <span className="sr-only">Downvote</span>
         </Button>
         <Button variant="ghost" size="icon">
-          <MessageCircleIcon className="w-5 h-5" />
+          <MessageCircle className="w-5 h-5" />
           <span className="sr-only">Comment</span>
         </Button>
         <div className="text-sm text-muted-foreground">{comments} comments</div>
