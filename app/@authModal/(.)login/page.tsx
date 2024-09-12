@@ -1,6 +1,6 @@
 "use client";
-import { SignIn } from "@/app/(auth)/login/page";
 import CloseModal from "@/components/CloseModal";
+import SignIn from "@/components/pages/SignIn";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect } from "react";
 
