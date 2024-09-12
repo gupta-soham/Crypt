@@ -13,7 +13,7 @@ export default function MiniPostCreator({ session }: { session: Session }) {
 
   return (
     <>
-      <li className="overflow-hidden rounded-md bg-white shadow">
+      <li className="overflow-hidden rounded-md shadow outline-double">
         <div className="h-full px-6 py-4 flex justify-between gap-1 sm:gap-3">
           <div className="relative">
             <UserAvatar
@@ -36,14 +36,14 @@ export default function MiniPostCreator({ session }: { session: Session }) {
             variant="ghost"
             onClick={() => router.push(pathName + "/submit")}
           >
-            <ImageIcon className="text-zinc-600 hover:text-black" />
+            <ImageIcon className="text-zinc-600 hover:text-purple-600" />
           </Button>
 
           <Button
             variant="ghost"
             onClick={() => router.push(pathName + "/submit")}
           >
-            <Link2 className="text-zinc-600 rotate-45 hover:text-black" />
+            <Link2 className="text-zinc-600 rotate-45 hover:text-purple-600" />
           </Button>
         </div>
       </li>

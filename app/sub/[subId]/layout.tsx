@@ -74,32 +74,38 @@ export default async function layout({
           <ul className="flex flex-col col-span-2 space-y-6">{children}</ul>
 
           {/* Info Sidebar */}
-          <div className="hidden overflow-hidden h-fit rounded-lg border border-gray-200 order-first md:order-last sm:block">
-            <div className="px-6 py-4">
-              <p className="font-semibold py-3">About sub/{subgroup.name}</p>
+          <div className="hidden overflow-hidden h-fit rounded-lg border border-gray-200 dark:border-gray-700 order-first md:order-last sm:block">
+            <div className="px-6 py-4 dark:bg-gray-800">
+              <p className="font-semibold py-3 dark:text-white">
+                About sub/{subgroup.name}
+              </p>
             </div>
-            <dl className="divide-y divide-gray-100 px-6 py-4 text-sm leading-6 bg-white">
+            <dl className="divide-y divide-gray-100 dark:divide-gray-700 px-6 py-4 text-sm leading-6 bg-gray-200 dark:bg-black/10">
               <div className="flex justify-between gap-x-4 py-3">
-                <dt className="text-gray-500">Created</dt>
-                <dd className="text-gray-700">
+                <dt className="text-gray-500 dark:text-gray-400">Created</dt>
+                <dd className="text-gray-700 dark:text-gray-300">
                   <time dateTime={subgroup.createdAt.toDateString()}>
                     {format(subgroup.createdAt, "d MMMM, yyyy")}
                   </time>
                 </dd>
               </div>
               <div className="flex justify-between gap-x-4 py-3">
-                <dt className="text-gray-500">Members</dt>
+                <dt className="text-gray-500 dark:text-gray-400">Members</dt>
                 <dd className="flex items-start gap-x-2">
-                  <div className="text-gray-900">{memberCount}</div>
+                  <div className="text-gray-900 dark:text-gray-100">
+                    {memberCount}
+                  </div>
                 </dd>
               </div>
               {subgroup.creatorId === session?.user?.id ? (
                 <div className="flex justify-between gap-x-4 py-3">
-                  <dt className="text-gray-500">You created this community</dt>
+                  <dt className="text-gray-500 dark:text-gray-400">
+                    You created this community
+                  </dt>
                 </div>
               ) : (
                 <div className="flex justify-between gap-x-4 py-3">
-                  <dt className="text-gray-500">
+                  <dt className="text-gray-500 dark:text-gray-400">
                     created by u/@{creator?.username}
                   </dt>
                 </div>
@@ -115,7 +121,8 @@ export default async function layout({
               <Link
                 className={buttonVariants({
                   variant: "outline",
-                  className: "w-full mb-6",
+                  className:
+                    "w-full mb-6 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600",
                 })}
                 href={`/sub/${subId}/submit`}
               >

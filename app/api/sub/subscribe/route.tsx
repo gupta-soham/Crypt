@@ -35,7 +35,7 @@ export async function POST(req: Request) {
     return new Response(subgroupId);
   } catch (err) {
     if (err instanceof z.ZodError) {
-        return new Response("Invalid request data passed", { status: 422 }); // Unprocessable entity
+        return new Response("Invalid POST request data passed", { status: 422 }); // Unprocessable entity
       }
   
       return new Response("Something went wrong!", { status: 500 });

@@ -1,5 +1,6 @@
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { PostValidator } from "@/lib/validators/post";
 import { SubgroupSubscriptionValidator } from "@/lib/validators/sub";
 import { z } from "zod";
 
@@ -13,37 +14,33 @@ export async function POST(req: Request) {
 
     const body = await req.json();
 
-    const { subgroupId } = SubgroupSubscriptionValidator.parse(body);
+    const { subgroupId, title, content } = PostValidator.parse(body);
 
     const subscriptionExists = await db.subscription.findFirst({
       where: { subgroupId, userId: session.user.id },
     });
 
     if (!subscriptionExists) {
-      return new Response("You're not a part of this community.", {
+      return new Response("Subscribe this community to post.", {
         status: 400,
       });
     }
 
-    const subgroup = await db.subgroup.findFirst({
-      where: {
-        id: subgroupId,
-        creatorId: session.user.id,
+    await db.post.create({
+      data: {
+        title,
+        content,
+        authorId: session.user.id,
+        subgroupId,
       },
     });
 
-    if(subgroup) return new Response("The creator cannot leave the community.", {status: 402})
-
-    await db.subscription.delete({
-      where: { userId_subgroupId: { userId: session.user.id, subgroupId } },
-    });
-
-    return new Response(subgroupId);
+    return new Response("SUCCESS");
   } catch (err) {
     if (err instanceof z.ZodError) {
       return new Response("Invalid POST request data passed", { status: 422 }); // Unprocessable entity
     }
 
-    return new Response("Something went wrong!", { status: 500 });
+    return new Response("Couldn't create a post.", { status: 500 });
   }
 }

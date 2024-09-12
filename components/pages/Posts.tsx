@@ -23,7 +23,7 @@ export function Posts() {
   return (
     <div className="bg-card rounded-lg border border-card-border p-4 space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-bold">Trending</h2>
+        <h2 className="text-lg font-bold">Your Feed</h2>
         <Button variant="ghost" size="icon">
           <Filter className="w-5 h-5" />
           <span className="sr-only">Filter</span>
