@@ -22,6 +22,9 @@ export async function Navbar() {
           <Icons.logo className="h-14 w-14 sm:h-10 sm:w-10" />
           <p className="hidden text-xl font-bold md:block">Crypt</p>
         </Link>
+        <span className="rounded-full text-base bg-primary/10 border border-primary/50 px-2 hidden md:block">
+          v1.0
+        </span>
 
         <nav className="hidden md:flex pl-3 items-center gap-4 text-bold font-semibold text-gray-600">
           <div className="flex flex-row">

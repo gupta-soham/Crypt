@@ -25,12 +25,17 @@ export default function RootLayout({
     <html
       lang="en"
       className={cn(
-        "bg-white text-slate-900 antialiased light",
+        "antialiased light",
         inter.className
       )}
     >
       <body className={cn("min-h-screen antialiased", inter.className)}>
-        <Providers>
+        <Providers
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           <Navbar />
 
           {authModal}
