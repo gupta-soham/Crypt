@@ -6,8 +6,8 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { CreateSubgroupPayload } from "@/lib/validators/sub";
-import { toast } from "@/components/hooks/use-toast";
-import useCustomToast from "@/components/hooks/useCustomToast";
+import { toast } from "@/hooks/use-toast";
+import useCustomToast from "@/hooks/useCustomToast";
 import { ToastAction } from "@/components/ui/toast";
 
 export default function Create() {

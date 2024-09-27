@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { toast } from "@/components/hooks/use-toast";
+import { toast } from "./use-toast";
 import { buttonVariants } from "@/components/ui/button";
 
 export default function useCustomToast() {

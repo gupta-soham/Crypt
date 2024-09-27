@@ -4,9 +4,9 @@ import { Button } from "./ui/button";
 import { SubscribeToSubgroupPayload } from "@/lib/validators/sub";
 import axios, { AxiosError } from "axios";
 import { ToastAction } from "./ui/toast";
-import { toast } from "./hooks/use-toast";
+import { toast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import useCustomToast from "./hooks/useCustomToast";
+import useCustomToast from "@/hooks/useCustomToast";
 import { startTransition } from "react";
 interface SubscribeLeaveToggleProps {
   isSubscribed: boolean;
@@ -65,7 +65,7 @@ export default function SubscribeLeaveToggle({
       });
     },
   });
-  
+
   // Unsubscribe
   const { mutate: unsubscribe, isPending: isUnsubscribing } = useMutation({
     mutationFn: async () => {
@@ -118,8 +118,20 @@ export default function SubscribeLeaveToggle({
   });
 
   return isSubscribed ? (
-    <Button onClick={() => unsubscribe()} isLoading={isUnsubscribing} className="w-full mt-1 mb-4">Leave Community</Button>
+    <Button
+      onClick={() => unsubscribe()}
+      isLoading={isUnsubscribing}
+      className="w-full mt-1 mb-4"
+    >
+      Leave Community
+    </Button>
   ) : (
-    <Button onClick={() => subscribe()} isLoading={isSubscribing} className="w-full mt-1 mb-4">Join to Post</Button>
+    <Button
+      onClick={() => subscribe()}
+      isLoading={isSubscribing}
+      className="w-full mt-1 mb-4"
+    >
+      Join to Post
+    </Button>
   );
 }
