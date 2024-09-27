@@ -1,9 +1,10 @@
-import React from "react";
+import MiniPostCreator from "@/components/pages/MiniPostCreator";
+
+import PostFeed from "@/components/pages/PostFeed";
+import { Infinite_Scrolling_Pagination_Results } from "@/config";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { Infinite_Scrolling_Pagination_Results } from "@/config";
 import { notFound } from "next/navigation";
-import MiniPostCreator from "@/components/pages/MiniPostCreator";
 
 interface PageProps {
   params: {
@@ -11,15 +12,11 @@ interface PageProps {
   };
 }
 
-export default async function page({
-  params,
-}: PageProps): Promise<JSX.Element> {
+export default async function page({params}: PageProps): Promise<JSX.Element> {
   const { subId } = params;
   const session = await getAuthSession();
   const subgroup = await db.subgroup.findFirst({
-    where: {
-      name: subId,
-    },
+    where: { name: subId },
     include: {
       posts: {
         include: {
@@ -27,6 +24,9 @@ export default async function page({
           votes: true,
           comments: true,
           subgroup: true,
+        },
+        orderBy: {
+          createdAt: 'desc'
         },
         take: Infinite_Scrolling_Pagination_Results,
       },
@@ -44,6 +44,8 @@ export default async function page({
       </h1>
 
       <MiniPostCreator session={session!} />
+
+      <PostFeed initialPosts={subgroup.posts} subgroupName={subgroup.name} />
     </>
   );
 }

@@ -1,107 +1,78 @@
-import React from "react";
+// Preview Component for each Post
+import { formatTimeToNow } from "@/lib/utils";
+import { Post, User, Vote } from "@prisma/client";
+import { MessageSquare } from "lucide-react";
+import Link from "next/link";
+import { useRef } from "react";
+import EditorOutput from "../EditorOutput";
 
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
-import {
-  ArrowDown,
-  ArrowUp,
-  Filter,
-  MessageCircle,
-  MessageCircleReply,
-  MoveDiagonal,
-} from "lucide-react";
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
+type PartialVote = Pick<Vote, "type">;
 
-type PostType = {
-  content: string | JSX.Element;
-  timeAgo: string;
-  upvotes: number;
-  comments: number;
-};
-export function Posts() {
-  return (
-    <div className="bg-card rounded-lg border border-card-border p-4 space-y-4">
-      <div className="flex items-center justify-between">
-        <h2 className="text-lg font-bold">Your Feed</h2>
-        <Button variant="ghost" size="icon">
-          <Filter className="w-5 h-5" />
-          <span className="sr-only">Filter</span>
-        </Button>
-      </div>
-      <div className="grid gap-4">
-        <Post
-          content="Just finished my midterms! Time to celebrate with some friends. 🎉"
-          timeAgo="2 hours ago"
-          upvotes={123}
-          comments={42}
-        />
-        <Post
-          content={
-            <Image
-              src="/placeholder.svg"
-              width={400}
-              height={225}
-              alt="Image"
-              className="rounded-md object-cover aspect-video"
-            />
-          }
-          timeAgo="1 day ago"
-          upvotes={456}
-          comments={78}
-        />
-        <Post
-          content="Anyone else struggling with their final project? I could use some help!"
-          timeAgo="3 days ago"
-          upvotes={89}
-          comments={21}
-        />
-      </div>
-    </div>
-  );
+interface PostProps {
+  post: Post & {
+    author: User;
+    votes: Vote[];
+  };
+  totalVotes: number;
+  subgroupName: string;
+  currentVote?: PartialVote;
+  commentAmt: number;
 }
+export default function Posts({
+  post,
+  totalVotes: _totalVotes,
+  currentVote: _currentVote,
+  subgroupName,
+  commentAmt,
+}: PostProps) {
+  const pRef = useRef<HTMLParagraphElement>(null);
 
-function Post({ content, timeAgo, upvotes, comments }: PostType) {
   return (
-    <Card>
-      <CardHeader className="flex  gap-3 relative ">
-        <div className="flex items-center gap-3">
-          <Avatar className="w-8 h-8 rounded-full border overflow-hidden">
-            <AvatarImage src="/placeholder-user.jpg" alt="User" />
-            <AvatarFallback>UN</AvatarFallback>
-          </Avatar>
+    <div className="rounded-md bg-white dark:bg-black/30 shadow">
+      <div className="px-6 py-4 flex justify-between">
+        <div className="w-0 flex-1">
+          <div className="max-h-40 mt-1 text-xs text-gray-500">
+            {subgroupName ? (
+              <>
+                <a
+                  className="underline text-zinc-900 dark:text-zinc-100 text-sm underline-offset-2"
+                  href={`/sub/${subgroupName}`}
+                >
+                  sub/{subgroupName}
+                </a>
+                <span className="px-1">•</span>
+              </>
+            ) : null}
+            <span>Posted by u/{post.author.username}</span>{" "}
+            {formatTimeToNow(new Date(post.createdAt))}
+          </div>
+          <a href={`/sub/${subgroupName}/post/${post.id}`}>
+            <h1 className="text-lg font-semibold py-2 leading-6 text-gray-900 dark:text-gray-100">
+              {post.title}
+            </h1>
+          </a>
 
-          <div>
-            <div className="font-medium">Anonymous User</div>
-            <div className="text-xs text-muted-foreground">{timeAgo}</div>
+          <div
+            className="relative text-sm max-h-40 w-full overflow-clip"
+            ref={pRef}
+          >
+            <EditorOutput content={post.content} />
+            {pRef.current?.clientHeight === 160 ? (
+              // blur bottom if content is too long
+              <div className="absolute bottom-0 left-0 h-24 w-full bg-gradient-to-t from-white dark:from-black to-transparent"></div>
+            ) : null}
           </div>
         </div>
+      </div>
 
-        <Button variant="ghost" size="icon" className="absolute top-2 right-2">
-          <MoveDiagonal className="w-5 h-5" />
-          <span className="sr-only">More</span>
-        </Button>
-      </CardHeader>
-
-      <CardContent>
-        <div className="text-sm">{content}</div>
-      </CardContent>
-      <CardFooter className="flex items-center gap-4">
-        <Button variant="ghost" size="icon">
-          <ArrowUp className="w-5 h-5" />
-          <span className="sr-only">Upvote</span>
-        </Button>
-        <div className="text-sm text-muted-foreground">{upvotes} upvotes</div>
-        <Button variant="ghost" size="icon">
-          <ArrowDown className="w-5 h-5" />
-          <span className="sr-only">Downvote</span>
-        </Button>
-        <Button variant="ghost" size="icon">
-          <MessageCircle className="w-5 h-5" />
-          <span className="sr-only">Comment</span>
-        </Button>
-        <div className="text-sm text-muted-foreground">{comments} comments</div>
-      </CardFooter>
-    </Card>
+      <div className="bg-gray-50 dark:bg-zinc-900 z-20 text-sm px-4 py-4 sm:px-6">
+        <Link
+          href={`/sub/${subgroupName}/post/${post.id}`}
+          className="w-fit flex items-center gap-2 text-gray-900 dark:text-gray-100"
+        >
+          <MessageSquare className="h-4 w-4" /> {commentAmt} comments
+        </Link>
+      </div>
+    </div>
   );
 }
