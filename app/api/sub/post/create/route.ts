@@ -1,7 +1,6 @@
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { PostValidator } from "@/lib/validators/post";
-import { SubgroupSubscriptionValidator } from "@/lib/validators/sub";
 import { z } from "zod";
 
 export async function POST(req: Request) {

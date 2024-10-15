@@ -1,15 +1,16 @@
 "use client";
+import { toast } from "@/hooks/use-toast";
+import useCustomLoginToast from "@/hooks/useCustomToast";
 import { uploadFiles } from "@/lib/uploadthing";
 import { PostCreationRequest, PostValidator } from "@/lib/validators/post";
 import type EditorJS from "@editorjs/editorjs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import TextAreaAutoSize from "react-textarea-autosize";
-import { toast } from "../hooks/use-toast";
 
 export default function Editor({ subgroupId }: { subgroupId: string }) {
   const {
@@ -24,6 +25,8 @@ export default function Editor({ subgroupId }: { subgroupId: string }) {
       content: null,
     },
   });
+
+  const { loginToast } = useCustomLoginToast();
 
   const ref = useRef<EditorJS>();
   const [isMounted, setIsMounted] = useState<boolean>(false);
@@ -134,7 +137,13 @@ export default function Editor({ subgroupId }: { subgroupId: string }) {
       return data;
     },
 
-    onError: () => {
+    onError: (err) => {
+      if (err instanceof AxiosError) {
+        if (err.response?.status === 401) {
+          return loginToast();
+        }
+      }
+
       return toast({
         title: "You're post wasn't published 😢",
         description: "Please try again later.",

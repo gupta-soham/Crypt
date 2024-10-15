@@ -1,19 +1,19 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { ToastAction } from "@/components/ui/toast";
+import { toast } from "@/hooks/use-toast";
+import useCustomLoginToast from "@/hooks/useCustomToast";
+import { CreateSubgroupPayload } from "@/lib/validators/sub";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
-import { CreateSubgroupPayload } from "@/lib/validators/sub";
-import { toast } from "@/hooks/use-toast";
-import useCustomToast from "@/hooks/useCustomToast";
-import { ToastAction } from "@/components/ui/toast";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Create() {
   const [input, setInput] = useState<string>("");
   const router = useRouter();
-  const { loginToast } = useCustomToast();
+  const { loginToast } = useCustomLoginToast();
 
   const { mutate: createCommunity, isPending } = useMutation({
     mutationFn: async () => {
@@ -64,9 +64,7 @@ export default function Create() {
         variant: "destructive",
         action: <ToastAction altText="Try again">Try again</ToastAction>,
       });
-
     },
-    
   });
 
   return (
