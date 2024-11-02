@@ -5,6 +5,7 @@ import { MessageSquare } from "lucide-react";
 import Link from "next/link";
 import { useRef } from "react";
 import EditorOutput from "../EditorOutput";
+import PostVoteClient from "./PostVoteClient";
 
 type PartialVote = Pick<Vote, "type">;
 
@@ -16,12 +17,12 @@ interface PostProps {
   totalVotes: number;
   subgroupName: string;
   currentVote?: PartialVote;
-  commentAmt: number;
+  commentAmt: number | null;
 }
 export default function Posts({
   post,
-  totalVotes: _totalVotes,
-  currentVote: _currentVote,
+  totalVotes,
+  currentVote,
   subgroupName,
   commentAmt,
 }: PostProps) {
@@ -30,6 +31,12 @@ export default function Posts({
   return (
     <div className="rounded-md bg-white dark:bg-black/30 shadow">
       <div className="px-6 py-4 flex justify-between">
+        <PostVoteClient
+          postId={post.id}
+          initialTotalVotes={totalVotes}
+          initialVote={currentVote?.type ?? null}
+        />
+
         <div className="w-0 flex-1">
           <div className="max-h-40 mt-1 text-xs text-gray-500">
             {subgroupName ? (
