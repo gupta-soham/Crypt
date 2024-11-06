@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { Icons } from "../Icons";
-import UserAuthentication from "../UserAuthentication";
+import { Icons } from "@/components/Icons";
+import UserAuthentication from "@/components/UserAuthentication";
 
 export default function SignUp() {
   return (

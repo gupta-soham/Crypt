@@ -10,7 +10,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { ArrowBigDown, ArrowBigUp } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 
 interface PostVoteClientProps {
   postId: string;

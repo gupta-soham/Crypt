@@ -2,9 +2,9 @@
 
 import { Session } from "next-auth";
 import { usePathname, useRouter } from "next/navigation";
-import { UserAvatar } from "../UserAvatar";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
+import { UserAvatar } from "@/components/UserAvatar";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { ImageIcon, Link2 } from "lucide-react";
 
 export default function MiniPostCreator({ session }: { session: Session }) {

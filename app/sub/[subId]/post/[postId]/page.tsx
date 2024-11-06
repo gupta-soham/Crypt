@@ -1,5 +1,5 @@
 import EditorOutput from "@/components/EditorOutput";
-import PostVoteServer from "@/components/pages/PostVoteServer";
+import PostVoteServer from "@/components/votes/PostVoteServer";
 import { buttonVariants } from "@/components/ui/button";
 import { db } from "@/lib/db";
 import { redis } from "@/lib/redis";

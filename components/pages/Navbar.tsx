@@ -3,9 +3,9 @@ import { getAuthSession } from "@/lib/auth";
 import ToggleTheme from "@/lib/toggleTheme";
 import { Bell, Search } from "lucide-react";
 import Link from "next/link";
-import { Icons } from "../Icons";
-import UserAccountNav from "./UserAccountNav";
-import AnimatedBackground from "../ui/AnimatedBG";
+import { Icons } from "@/components/Icons";
+import UserAccountNav from "@/components/UserAccountNav";
+import AnimatedBackground from "@/components/ui/AnimatedBG";
 
 export async function Navbar() {
   const session = await getAuthSession();

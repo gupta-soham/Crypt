@@ -2,15 +2,15 @@
 import { User } from "next-auth";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
-import { buttonVariants } from "../ui/button";
+import { buttonVariants } from "./ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/DropdownMenu";
-import { UserAvatar } from "../UserAvatar";
+} from "./ui/DropdownMenu";
+import { UserAvatar } from "./UserAvatar";
 
 interface UserAccountNavProps {
   user: Pick<User, "name" | "image" | "email">;
