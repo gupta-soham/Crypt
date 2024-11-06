@@ -1,9 +1,12 @@
 import { Communities } from "@/components/pages/Communities";
-import { Posts } from "@/components/pages/DummyPosts";
+import { getAuthSession } from "@/lib/auth";
+import CustomFeed from "./CustomFeed";
+import GeneralFeed from "./GeneralFeed";
 
-export function Homepage() {
+export async function Homepage() {
+  const session = await getAuthSession();
+
   return (
-    // <div className={`flex flex-col h-screen ${isDarkMode ? "dark" : ""}`}>
     <div className={`flex flex-col h-screen `}>
       <main className="flex-1 grid grid-cols-1 md:grid-cols-[300px_1fr] gap-6 p-6">
         <div className="md:sticky md:top-6 md:h-[calc(100vh-5rem)]">
@@ -11,7 +14,8 @@ export function Homepage() {
             <Communities />
           </div>
         </div>
-        <Posts />
+        {/* <Posts /> */}
+        {session ? <CustomFeed /> : <GeneralFeed />}
       </main>
     </div>
   );
