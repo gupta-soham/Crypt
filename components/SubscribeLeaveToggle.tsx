@@ -103,7 +103,7 @@ export default function SubscribeLeaveToggle({
         if (err.response?.status === 402) {
           return toast({
             title: "Creator cannot unsubscribe!",
-            description: "You're the creator this community 🪿",
+            description: "You're the creator of this community 🪿",
           });
         }
       }
@@ -121,7 +121,7 @@ export default function SubscribeLeaveToggle({
     <Button
       onClick={() => unsubscribe()}
       isLoading={isUnsubscribing}
-      className="w-full mt-1 mb-4"
+      className="w-full my-1"
     >
       Leave Community
     </Button>
@@ -129,7 +129,7 @@ export default function SubscribeLeaveToggle({
     <Button
       onClick={() => subscribe()}
       isLoading={isSubscribing}
-      className="w-full mt-1 mb-4"
+      className="w-full my-1"
     >
       Join to Post
     </Button>

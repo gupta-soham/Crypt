@@ -17,6 +17,7 @@ interface PostVoteClientProps {
   initialTotalVotes: number;
   initialVote: VoteType | null;
 }
+
 export default function PostVoteClient({
   postId,
   initialTotalVotes,
@@ -77,13 +78,14 @@ export default function PostVoteClient({
   });
 
   return (
-    <div className="flex flex-col gap-4 sm:gap-0 pr-6 sm:w-20 pb-4 sm:pb-0">
+    <div className="flex sm:flex-col items-center gap-1 sm:gap-2">
       {/* upvote */}
       <Button
         onClick={() => vote("UP")}
         size="sm"
         variant="ghost"
         aria-label="upvote"
+        className="p-0 sm:p-2"
       >
         <ArrowBigUp
           className={cn("h-5 w-5 text-zinc-700", {
@@ -93,13 +95,15 @@ export default function PostVoteClient({
       </Button>
 
       {/* votes */}
-      <p className="text-center py-2 font-medium text-sm">{votesAmt}</p>
+      <p className="text-center py-2 font-medium text-sm text-zinc-900 dark:text-zinc-100">
+        {votesAmt}
+      </p>
 
       {/* downvote */}
       <Button
         onClick={() => vote("DOWN")}
         size="sm"
-        className={cn({
+        className={cn("p-0 sm:p-2", {
           "text-emerald-500": currentVote === "DOWN",
         })}
         variant="ghost"

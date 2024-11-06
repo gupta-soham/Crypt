@@ -19,6 +19,7 @@ interface PostProps {
   currentVote?: PartialVote;
   commentAmt: number | null;
 }
+
 export default function Posts({
   post,
   totalVotes,
@@ -29,57 +30,66 @@ export default function Posts({
   const pRef = useRef<HTMLParagraphElement>(null);
 
   return (
-    <div className="rounded-md bg-white dark:bg-black/30 shadow">
-      <div className="px-6 py-4 flex justify-between">
-        <PostVoteClient
-          postId={post.id}
-          initialTotalVotes={totalVotes}
-          initialVote={currentVote?.type ?? null}
-        />
+    <article className="rounded-lg border bg-card shadow-sm transition-colors">
+      <div className="flex flex-col sm:flex-row p-4 sm:p-6">
+        <div className="flex sm:flex-col items-center sm:items-start mb-4 sm:mb-0">
+          <PostVoteClient
+            postId={post.id}
+            initialTotalVotes={totalVotes}
+            initialVote={currentVote?.type ?? null}
+          />
+        </div>
 
-        <div className="w-0 flex-1">
-          <div className="max-h-40 mt-1 text-xs text-gray-500">
-            {subgroupName ? (
+        <div className="flex-1 sm:ml-4 space-y-2">
+          <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+            {subgroupName && (
               <>
-                <a
-                  className="underline text-zinc-900 dark:text-zinc-100 text-sm underline-offset-2"
+                <Link
                   href={`/sub/${subgroupName}`}
+                  className="font-medium text-foreground hover:underline"
                 >
                   sub/{subgroupName}
-                </a>
-                <span className="px-1">•</span>
+                </Link>
+                <span>•</span>
               </>
-            ) : null}
-            <span>Posted by u/{post.author.username}</span>{" "}
-            {formatTimeToNow(new Date(post.createdAt))}
+            )}
+            <span>Posted by u/{post.author.username}</span>
+            <span>•</span>
+            <span>{formatTimeToNow(new Date(post.createdAt))}</span>
           </div>
-          <a href={`/sub/${subgroupName}/post/${post.id}`}>
-            <h1 className="text-lg font-semibold py-2 leading-6 text-gray-900 dark:text-gray-100">
+
+          <Link
+            href={`/sub/${subgroupName}/post/${post.id}`}
+            className="block group"
+          >
+            <h2 className="text-xl font-semibold text-foreground group-hover:underline decoration-2 underline-offset-2">
               {post.title}
-            </h1>
-          </a>
+            </h2>
+          </Link>
 
           <div
-            className="relative text-sm max-h-40 w-full overflow-clip"
+            className="relative max-h-40 overflow-hidden text-sm text-muted-foreground"
             ref={pRef}
           >
             <EditorOutput content={post.content} />
-            {pRef.current?.clientHeight === 160 ? (
-              // blur bottom if content is too long
-              <div className="absolute bottom-0 left-0 h-24 w-full bg-gradient-to-t from-white dark:from-black to-transparent"></div>
-            ) : null}
+            {pRef.current?.clientHeight === 160 && (
+              <div className="absolute bottom-0 left-0 h-24 w-full bg-gradient-to-t from-background to-transparent" />
+            )}
           </div>
         </div>
       </div>
 
-      <div className="bg-gray-50 dark:bg-zinc-900 z-20 text-sm px-4 py-4 sm:px-6">
+      <div className="border-t bg-muted/10 px-4 sm:px-6 py-3">
         <Link
           href={`/sub/${subgroupName}/post/${post.id}`}
-          className="w-fit flex items-center gap-2 text-gray-900 dark:text-gray-100"
+          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
         >
-          <MessageSquare className="h-4 w-4" /> {commentAmt} comments
+          <MessageSquare className="h-4 w-4" />
+          <span>
+            {commentAmt} {commentAmt === 1 ? "comment" : "comments"}
+          </span>
         </Link>
       </div>
-    </div>
+    </article>
   );
 }

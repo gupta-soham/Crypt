@@ -1,4 +1,5 @@
 "use client";
+
 import { Infinite_Scrolling_Pagination_Results } from "@/config";
 import { ExtendedPost } from "@/types/db";
 import { useIntersection } from "@mantine/hooks";
@@ -12,6 +13,7 @@ interface PostFeedTypes {
   initialPosts: ExtendedPost[];
   subgroupName?: string;
 }
+
 export default function PostFeed({
   initialPosts,
   subgroupName,
@@ -54,7 +56,8 @@ export default function PostFeed({
   const posts = data.pages.flatMap((page) => page) ?? initialPosts;
 
   return (
-    <ul className="flex flex-col col-span-2 space-y-6">
+    // <ul className="flex flex-col col-span-2 space-y-6">
+    <ul className="space-y-6">
       {posts.map((post, index) => {
         const totalVotes = post.votes.reduce((acc, vote) => {
           if (vote.type === "UP") return acc + 1;
