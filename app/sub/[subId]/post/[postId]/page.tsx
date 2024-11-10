@@ -9,6 +9,7 @@ import { Post, User, Vote } from "@prisma/client";
 import { ArrowBigDown, ArrowBigUp, Loader2 } from "lucide-react";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import CommentsSection from "@/components/comments/CommentsSection";
 
 interface SubgroupPostPageProps {
   params: {
@@ -81,7 +82,9 @@ const SubgroupPostPage = async ({ params }: SubgroupPostPageProps) => {
             fallback={
               <Loader2 className="h-5 w-5 animate-spin text-zinc-500" />
             }
-          ></Suspense>
+          >
+            <CommentsSection postId={post?.id ?? cachedPost.id} comments={[]} />
+          </Suspense>
         </div>
       </div>
     </div>
