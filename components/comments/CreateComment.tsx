@@ -48,6 +48,9 @@ export default function CreateComment({
     onSuccess: () => {
       router.refresh();
       setInput("");
+      return toast({
+        title: "Your comment has been posted! 🥳",
+      });
     },
   });
 

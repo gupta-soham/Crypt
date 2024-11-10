@@ -1,12 +1,17 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { UserAvatar } from "@/components/UserAvatar";
+import { useOnClickOutside } from "@/hooks/use-on-click-outside";
 import { toast } from "@/hooks/use-toast";
 import { formatTimeToNow } from "@/lib/utils";
 import { CommentRequest } from "@/lib/validators/comment";
 import { Comment, CommentVote, User } from "@prisma/client";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { MessageSquare } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
@@ -31,15 +36,22 @@ export default function PostComment({
   postId,
 }: PostCommentProps) {
   const { data: session } = useSession();
+  const [isReplying, setIsReplying] = useState<boolean>(false);
   const commentRef = useRef<HTMLDivElement>(null);
   const [input, setInput] = useState<string>(`@${comment.author.username} `);
   const router = useRouter();
+  useOnClickOutside(commentRef, () => {
+    setIsReplying(false);
+  });
 
   const { mutate: postComment, isPending } = useMutation({
     mutationFn: async ({ postId, text, replyToId }: CommentRequest) => {
       const payload: CommentRequest = { postId, text, replyToId };
 
-      const { data } = await axios.patch("/api/sub/post/comment/", payload);
+      const { data } = await axios.patch(
+        `/api/sub/post/comment/`,
+        payload
+      );
       return data;
     },
 
@@ -52,6 +64,7 @@ export default function PostComment({
     },
     onSuccess: () => {
       router.refresh();
+      setIsReplying(false);
     },
   });
 
@@ -84,7 +97,64 @@ export default function PostComment({
           votesAmt={votesAmt}
           currentVote={currentVote}
         />
+
+        <Button
+          onClick={() => {
+            if (!session) return router.push("/login");
+            setIsReplying(true);
+          }}
+          variant="ghost"
+          size="sm"
+        >
+          <MessageSquare className="h-4 w-4 mr-1.5" />
+          Reply
+        </Button>
       </div>
+
+      {isReplying ? (
+        <div className="grid w-full gap-1.5">
+          <Label htmlFor="comment">Your comment</Label>
+          <div className="mt-2">
+            <Textarea
+              onFocus={(e) =>
+                e.currentTarget.setSelectionRange(
+                  e.currentTarget.value.length,
+                  e.currentTarget.value.length
+                )
+              }
+              autoFocus
+              id="comment"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              rows={1}
+              placeholder="What are your thoughts?"
+            />
+
+            <div className="mt-2 flex justify-end gap-2">
+              <Button
+                tabIndex={-1}
+                variant="secondary"
+                onClick={() => setIsReplying(false)}
+              >
+                Cancel
+              </Button>
+              <Button
+                isLoading={isPending}
+                onClick={() => {
+                  if (!input) return;
+                  postComment({
+                    postId,
+                    text: input,
+                    replyToId: comment.replyToId ?? comment.id, // default to top-level comment
+                  });
+                }}
+              >
+                Post
+              </Button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }
