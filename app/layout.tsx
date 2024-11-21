@@ -1,10 +1,11 @@
+import { Navbar } from "@/components/pages/Navbar";
+import Providers from "@/components/Providers";
+import { Toaster } from "@/components/ui/toaster";
+import { getAuthSession } from "@/lib/auth";
+import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils";
-import { Navbar } from "@/components/pages/Navbar";
-import { Toaster } from "@/components/ui/toaster";
-import Providers from "@/components/Providers";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
@@ -14,21 +15,17 @@ export const metadata: Metadata = {
     "Crypt offers students a confidential space to discuss academics, share insights, and connect with a supportive community anonymously.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   authModal,
 }: Readonly<{
   children: React.ReactNode;
   authModal: React.ReactNode;
 }>) {
+  const session = await getAuthSession();
+  
   return (
-    <html
-      lang="en"
-      className={cn(
-        "antialiased light",
-        inter.className
-      )}
-    >
+    <html lang="en" className={cn("antialiased light", inter.className)}>
       <body className={cn("min-h-screen antialiased", inter.className)}>
         <Providers
           attribute="class"
@@ -36,7 +33,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
+          <Navbar session={session} />
 
           {authModal}
 

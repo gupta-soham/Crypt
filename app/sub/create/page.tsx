@@ -68,13 +68,14 @@ export default function Create() {
   });
 
   return (
-    <div className="container flex items-center h-full max-w-3xl mx-auto">
+    <div className="container flex flex-col items-center h-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="relative w-full h-fit p-4 rounded-lg space-y-6">
         <div className="flex justify-between items-center">
           <div className="text-xl font-semibold">Create a Community</div>
         </div>
 
         <hr className="bg-zinc-500 h-px" />
+
         <div>
           <p className="text-lg font-medium">Name Your Community</p>
           <p className="text-xs pb-2">
@@ -83,25 +84,31 @@ export default function Create() {
         </div>
 
         <div className="relative">
-          <p className="absolute text-sm left-0 w-8 inset-y-0 grid place-items-center text-zinc-400">
+          <p className="absolute text-sm left-0 w-8 inset-y-0 grid place-items-center text-zinc-400 pl-2">
             sub/
           </p>
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="pl-8"
+            className="pl-10"
           />
         </div>
       </div>
 
-      <div className="flex justify-end gap-4">
-        <Button variant="secondary" onClick={() => router.back()}>
+      {/* Button Container */}
+      <div className="flex flex-col sm:flex-row justify-between gap-4 mt-auto sm:mt-6 w-full">
+        <Button
+          variant="secondary"
+          onClick={() => router.back()}
+          className="w-full sm:w-auto"
+        >
           Cancel
         </Button>
         <Button
           isLoading={isPending}
           disabled={input.length === 0}
           onClick={() => createCommunity()}
+          className="w-full sm:w-auto"
         >
           Create Community
         </Button>
