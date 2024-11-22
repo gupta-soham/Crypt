@@ -23,10 +23,16 @@ export default async function RootLayout({
   authModal: React.ReactNode;
 }>) {
   const session = await getAuthSession();
-  
+
   return (
-    <html lang="en" className={cn("antialiased light", inter.className)}>
-      <body className={cn("min-h-screen antialiased", inter.className)}>
+    <html lang="en" className={cn("antialiased", inter.className)}>
+      <body
+        className={cn(
+          "min-h-screen antialiased bg-background text-foreground",
+          "dark:bg-black dark:text-white",
+          inter.className
+        )}
+      >
         <Providers
           attribute="class"
           defaultTheme="system"
@@ -37,7 +43,10 @@ export default async function RootLayout({
 
           {authModal}
 
-          <div className="container max-w-7xl mx-auto h-full pt-1">
+          <div
+            className="container max-w-7xl mx-auto h-full pt-1 
+            dark:bg-black dark:text-white"
+          >
             {children}
           </div>
 
