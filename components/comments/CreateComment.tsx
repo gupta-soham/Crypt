@@ -64,6 +64,7 @@ export default function CreateComment({
           onChange={(e) => setInput(e.target.value)}
           rows={1}
           placeholder="What are your thoughts?"
+          className="dark:bg-black/50 dark:text-white/80 dark:border-gray-800"
         />
 
         <div className="mt-2 flex justify-end">
@@ -71,6 +72,7 @@ export default function CreateComment({
             isLoading={isPending}
             disabled={input.length === 0}
             onClick={() => comment({ postId, text: input, replyToId })}
+            variant="default"
           >
             Post
           </Button>

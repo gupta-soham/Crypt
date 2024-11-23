@@ -90,7 +90,7 @@ export default function Create() {
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="pl-10"
+            className="pl-10 dark:bg-black/20"
           />
         </div>
       </div>

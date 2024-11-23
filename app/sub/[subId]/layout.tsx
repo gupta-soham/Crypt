@@ -1,4 +1,5 @@
 import SubscribeLeaveToggle from "@/components/SubscribeLeaveToggle";
+import ToFeedButton from "@/components/ToFeedButton";
 import { buttonVariants } from "@/components/ui/button";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
@@ -66,25 +67,29 @@ export default async function layout({
 
   return (
     <div className="sm:container max-w-7xl mx-auto px-4 py-6 lg:py-8">
-      {/* <ToFeedButton /> */}
+      <ToFeedButton />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-y-4 md:gap-x-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-y-4 md:gap-x-4 mt-2">
         <div className="col-span-2">
           <ul className="space-y-6">{children}</ul>
         </div>
 
         {/* Info Sidebar */}
         <aside className="order-first md:order-last">
-          <div className="rounded-lg border bg-card shadow-sm overflow-hidden">
-            <div className="px-6 py-4 border-b">
-              <h2 className="font-semibold">About sub/{subgroup.name}</h2>
+          <div className="rounded-lg border bg-card shadow-sm overflow-hidden dark:bg-black/20 dark:border-gray-800">
+            <div className="px-6 py-4 border-b dark:border-gray-700">
+              <h2 className="font-semibold text-foreground dark:text-white">
+                About sub/{subgroup.name}
+              </h2>
             </div>
 
-            <div className="px-6 py-4 bg-muted/10 space-y-4">
+            <div className="px-6 py-4 bg-muted/10 dark:bg-gray-900/20 space-y-4">
               <dl className="space-y-4 text-sm">
                 <div className="flex justify-between gap-x-4">
-                  <dt className="text-muted-foreground">Created</dt>
-                  <dd className="text-foreground">
+                  <dt className="text-muted-foreground dark:text-gray-400">
+                    Created
+                  </dt>
+                  <dd className="text-foreground dark:text-white">
                     <time dateTime={subgroup.createdAt.toDateString()}>
                       {format(subgroup.createdAt, "d MMMM, yyyy")}
                     </time>
@@ -92,16 +97,20 @@ export default async function layout({
                 </div>
 
                 <div className="flex justify-between gap-x-4">
-                  <dt className="text-muted-foreground">Members</dt>
-                  <dd className="text-foreground">{memberCount}</dd>
+                  <dt className="text-muted-foreground dark:text-gray-400">
+                    Members
+                  </dt>
+                  <dd className="text-foreground dark:text-white">
+                    {memberCount}
+                  </dd>
                 </div>
 
                 {subgroup.creatorId === session?.user?.id ? (
-                  <div className="text-muted-foreground">
+                  <div className="text-muted-foreground dark:text-gray-400">
                     You created this community
                   </div>
                 ) : (
-                  <div className="text-muted-foreground">
+                  <div className="text-muted-foreground dark:text-gray-400">
                     created by u/{creator?.username}
                   </div>
                 )}

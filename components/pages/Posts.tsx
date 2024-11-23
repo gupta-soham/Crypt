@@ -30,7 +30,7 @@ export default function Posts({
   const pRef = useRef<HTMLParagraphElement>(null);
 
   return (
-    <article className="rounded-lg border bg-card shadow-sm transition-colors">
+    <article className="rounded-lg border bg-card shadow-sm transition-colors dark:bg-black/20 dark:border-gray-800">
       <div className="flex flex-col sm:flex-row p-4 sm:p-6">
         <div className="flex sm:flex-col items-center sm:items-start mb-4 sm:mb-0">
           <PostVoteClient
@@ -46,7 +46,7 @@ export default function Posts({
               <>
                 <Link
                   href={`/sub/${subgroupName}`}
-                  className="font-medium text-foreground hover:underline"
+                  className="font-medium text-foreground dark:text-muted-foreground hover:underline"
                 >
                   sub/{subgroupName}
                 </Link>
@@ -62,24 +62,25 @@ export default function Posts({
             href={`/sub/${subgroupName}/post/${post.id}`}
             className="block group"
           >
-            <h2 className="text-xl font-semibold text-foreground group-hover:underline decoration-2 underline-offset-2">
+            <h2 className="text-xl font-semibold text-primary dark:text-white group-hover:underline decoration-2 underline-offset-2">
               {post.title}
             </h2>
           </Link>
 
+          {/* gradient background  */}
           <div
             className="relative max-h-40 overflow-hidden text-sm text-muted-foreground"
             ref={pRef}
           >
             <EditorOutput content={post.content} />
             {pRef.current?.clientHeight === 160 && (
-              <div className="absolute bottom-0 left-0 h-24 w-full bg-gradient-to-t from-background to-transparent" />
+              <div className="absolute bottom-0 left-0 h-24 w-full bg-gradient-to-t from-background dark:from-gray-900 to-transparent" />
             )}
           </div>
         </div>
       </div>
 
-      <div className="border-t bg-muted/10 px-4 sm:px-6 py-3">
+      <div className="border-t bg-muted/10 px-4 sm:px-6 py-3 dark:border-gray-800 dark:bg-gray-900/50">
         <Link
           href={`/sub/${subgroupName}/post/${post.id}`}
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"

@@ -5,48 +5,64 @@ import { usePathname, useRouter } from "next/navigation";
 import { UserAvatar } from "@/components/UserAvatar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { ImageIcon, Link2 } from "lucide-react";
+import { ImageIcon, Link2, PlusCircle } from "lucide-react";
 
 export default function MiniPostCreator({ session }: { session: Session }) {
   const router = useRouter();
   const pathName = usePathname();
 
+  function handleClick() {
+    router.push(pathName + "/submit");
+  }
+
   return (
-    <>
-      <li className="overflow-hidden rounded-md shadow outline-double">
-        <div className="h-full px-6 py-4 flex justify-between gap-1 sm:gap-3">
-          <div className="relative">
-            <UserAvatar
-              user={{
-                name: session?.user.name || null,
-                image: session?.user.image || null,
-              }}
-            />
-
-            <span className="absolute bottom-0 right-0 rounded-full w-3 h-3 bg-green-600 outline outline-2 outline-white" />
-          </div>
-
+    <div className="w-full max-w-2xl mx-auto">
+      <div className="flex items-center gap-4 p-4 rounded-lg shadow-md border border-border">
+        <div className="relative flex-shrink-0">
+          <UserAvatar
+            user={{
+              name: session?.user.name || null,
+              image: session?.user.image || null,
+            }}
+            className="w-10 h-10"
+          />
+          <span className="absolute bottom-0 right-0 rounded-full w-3 h-3 bg-green-600 outline outline-2 outline-background" />
+        </div>
+        <div className="flex-grow flex items-center gap-2">
           <Input
             readOnly
-            onClick={() => router.push(pathName + "/submit")}
+            onClick={handleClick}
             placeholder="Create Post"
+            className="cursor-pointer bg-background dark:bg-black"
           />
-
-          <Button
-            variant="ghost"
-            onClick={() => router.push(pathName + "/submit")}
-          >
-            <ImageIcon className="text-zinc-600 hover:text-purple-600" />
-          </Button>
-
-          <Button
-            variant="ghost"
-            onClick={() => router.push(pathName + "/submit")}
-          >
-            <Link2 className="text-zinc-600 rotate-45 hover:text-purple-600" />
-          </Button>
+          <div className="flex-shrink-0 flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleClick}
+              className="hidden sm:flex"
+            >
+              <ImageIcon className="h-5 w-5 text-muted-foreground hover:text-primary" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleClick}
+              className="hidden sm:flex"
+            >
+              <Link2 className="h-5 w-5 text-muted-foreground hover:text-primary rotate-45" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleClick}
+              className="sm:hidden"
+            >
+              <PlusCircle className="h-5 w-5 text-muted-foreground hover:text-primary" />
+            </Button>
+          </div>
         </div>
-      </li>
-    </>
+      </div>
+    </div>
   );
 }

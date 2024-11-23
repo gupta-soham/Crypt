@@ -29,7 +29,11 @@ interface UserNameFormProps extends React.HTMLAttributes<HTMLFormElement> {
 
 type FormData = z.infer<typeof UsernameValidator>;
 
-export function UpdateUsername({ user, className, ...props }: UserNameFormProps) {
+export function UpdateUsername({
+  user,
+  className,
+  ...props
+}: UserNameFormProps) {
   const router = useRouter();
   const {
     handleSubmit,
@@ -89,7 +93,7 @@ export function UpdateUsername({ user, className, ...props }: UserNameFormProps)
       onSubmit={handleSubmit((e) => updateUsername(e))}
       {...props}
     >
-      <Card>
+      <Card className="dark:bg-black/50 dark:text-white dark:border-gray-800">
         <CardHeader>
           <CardTitle>Your username</CardTitle>
           <CardDescription>
@@ -108,7 +112,7 @@ export function UpdateUsername({ user, className, ...props }: UserNameFormProps)
             </Label>
             <Input
               id="name"
-              className="w-full pl-6"
+              className="w-full pl-6 dark:bg-black/20 dark:text-white"
               size={32}
               {...register("name")}
             />

@@ -95,7 +95,7 @@ export default function PostVoteClient({
       </Button>
 
       {/* votes */}
-      <p className="text-center py-2 font-medium text-sm text-zinc-900 dark:text-zinc-100">
+      <p className="text-center py-2 font-medium text-sm">
         {votesAmt}
       </p>
 

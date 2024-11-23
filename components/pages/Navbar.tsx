@@ -3,9 +3,8 @@
 import { Icons } from "@/components/Icons";
 import UserAccountNav from "@/components/UserAccountNav";
 import AnimatedBackground from "@/components/ui/AnimatedBG";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import ToggleTheme from "@/lib/toggleTheme";
-import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import SearchBar from "./SearchBar";
@@ -25,7 +24,7 @@ export function Navbar({ session }: { session: any }) {
   };
 
   return (
-    <header className="bg-card border-b border-card-border px-4 py-2">
+    <header className="bg-card border-b border-card-border px-4 py-2 dark:bg-black/20 dark:border-gray-800">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Link href="/" className="flex gap-1 items-center" prefetch={false}>
@@ -36,7 +35,7 @@ export function Navbar({ session }: { session: any }) {
             href="https://github.com/gupta-soham/Crypt"
             className="hidden sm:block"
           >
-            <span className="rounded-full text-sm bg-primary/10 border border-primary/50 px-2">
+            <span className="rounded-full text-sm bg-primary/10 dark:bg-gray-900 border border-primary/50 px-2 dark:border-white/50">
               v1.0
             </span>
           </Link>
@@ -77,7 +76,7 @@ export function Navbar({ session }: { session: any }) {
           {session?.user ? (
             <UserAccountNav user={session.user} />
           ) : (
-            <Link href="/login" className={buttonVariants()}>
+            <Link href="/login" className={buttonVariants({ variant: "default" })}>
               Login
             </Link>
           )}

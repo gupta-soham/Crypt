@@ -73,7 +73,7 @@ const SubgroupPostPage = async ({ params }: SubgroupPostPageProps) => {
               )}
             </span>
           </p>
-          <h1 className="text-xl font-semibold py-2 leading-6 text-primary">
+          <h1 className="text-xl font-semibold py-2 leading-6 text-primary dark:text-white">
             {post?.title ?? cachedPost.title}
           </h1>
 
