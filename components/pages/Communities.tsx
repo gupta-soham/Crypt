@@ -33,12 +33,6 @@ export function Communities() {
 
           <div className="space-y-2">
             <CommunityLink
-              name="Study Group"
-              members="1.2k"
-              avatar="SG"
-              link="/sub/study-group"
-            />
-            <CommunityLink
               name="Programming"
               members="5.4k"
               avatar="PG"

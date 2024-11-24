@@ -39,13 +39,32 @@ const style = {
   },
   list: {
     container: {
-      margin: "0.75rem 0",
-      padding: "0 0 0 1rem",
+      margin: "1rem 0",
+      padding: "0 0 0 1.5rem",
     },
     listItem: {
       fontSize: "0.875rem",
       lineHeight: "1.5rem",
-      margin: "0.375rem 0",
+      margin: "0 0 0.5rem 0",
+    },
+  },
+  table: {
+    container: {
+      margin: "0.75rem 0",
+      width: "100%",
+      overflowX: "auto",
+    },
+    table: {
+      borderCollapse: "collapse",
+      width: "100%",
+    },
+    tableCell: {
+      border: "1px solid #e2e8f0",
+      padding: "0.5rem",
+    },
+    tableHeader: {
+      backgroundColor: "#f7fafc",
+      fontWeight: "600",
     },
   },
 };
@@ -58,6 +77,8 @@ interface EditorComponentProps {
 const renderers = {
   image: CustomImageRenderer,
   code: CustomCodeRenderer,
+  table: CustomTableRenderer,
+  list: CustomListRenderer,
 };
 
 export default function EditorOutput({
@@ -66,7 +87,15 @@ export default function EditorOutput({
 }: EditorComponentProps) {
   return (
     <div
-      className={cn("prose prose-sm dark:prose-invert max-w-none", className)}
+      className={cn(
+        "prose prose-sm dark:prose-invert max-w-none",
+        "sm:prose-base lg:prose-lg",
+        "prose-code:bg-gray-200 prose-code:dark:bg-gray-700 prose-code:rounded prose-code:px-1 prose-code:py-0.5 prose-code:text-sm prose-code:font-mono",
+        "prose-ul:pl-6 prose-ul:my-4 prose-ul:list-disc",
+        "prose-ol:pl-6 prose-ol:my-4 prose-ol:list-decimal",
+        "prose-li:mb-2",
+        className
+      )}
     >
       <Output
         data={content}
@@ -101,5 +130,57 @@ function CustomImageRenderer({ data }: any) {
         src={src}
       />
     </div>
+  );
+}
+
+function CustomTableRenderer({ data }: any) {
+  return (
+    <div className="overflow-x-auto my-4">
+      <table className="w-full border-collapse">
+        <thead>
+          <tr>
+            {data.content[0].map((header: string, index: number) => (
+              <th
+                key={index}
+                className="border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 p-2 text-left"
+              >
+                {header}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {data.content.slice(1).map((row: string[], rowIndex: number) => (
+            <tr key={rowIndex}>
+              {row.map((cell: string, cellIndex: number) => (
+                <td
+                  key={cellIndex}
+                  className="border border-gray-300 dark:border-gray-700 p-2"
+                >
+                  {cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function CustomListRenderer({ data }: any) {
+  const ListTag = data.style === "ordered" ? "ol" : "ul";
+  const listStyle = data.style === "ordered" ? "list-decimal" : "list-disc";
+
+  return (
+    <ListTag className={`pl-6 my-4 ${listStyle}`}>
+      {data.items.map((item: string, index: number) => (
+        <li
+          key={index}
+          className="mb-2"
+          dangerouslySetInnerHTML={{ __html: item }}
+        />
+      ))}
+    </ListTag>
   );
 }

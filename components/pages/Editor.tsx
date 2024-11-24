@@ -71,6 +71,7 @@ export default function Editor({ subgroupId }: { subgroupId: string }) {
             },
           },
           image: {
+            inlineToolbar: true,
             class: ImageTool,
             config: {
               uploader: {
@@ -113,12 +114,12 @@ export default function Editor({ subgroupId }: { subgroupId: string }) {
               },
             },
           },
-          list: List,
+          list: { class: List, inlineToolbar: true },
           code: Code,
           inlineCode: InlineCode,
-          table: Table,
+          table: { class: Table, inlineToolbar: true },
           embed: Embed,
-          paragraph: Paragraph,
+          paragraph: { class: Paragraph, inlineToolbar: true },
         },
       });
     }

@@ -66,10 +66,7 @@ export default function SearchBar({ isOpen, setIsOpen }: SearchBarProps) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <button
-          className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-black/20"
-          aria-label="Open search"
-        >
+        <button className="p-2 rounded-full" aria-label="Open search">
           <Search className="w-5 h-5 text-primary dark:text-white" />
         </button>
       </DialogTrigger>
@@ -98,7 +95,7 @@ export default function SearchBar({ isOpen, setIsOpen }: SearchBarProps) {
                         setIsOpen(false);
                       }}
                       value={sub.name}
-                      className="hover:bg-gray-100 dark:hover:bg-black/40"
+                      className="hover:bg-accent/80 dark:bg-black/40 dark:text-white dark:hover:bg-accent/20"
                     >
                       <Users className="mr-2 h-4 w-4" />
                       <span>sub/{sub.name}</span>

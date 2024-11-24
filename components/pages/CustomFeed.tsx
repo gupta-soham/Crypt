@@ -3,6 +3,8 @@ import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import PostFeed from "./PostFeed";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default async function CustomFeed() {
   const session = await getAuthSession();
@@ -36,9 +38,18 @@ export default async function CustomFeed() {
     take: Infinite_Scrolling_Pagination_Results,
   });
 
-  if (posts.length <= 3) {
-    return redirect("/trending");
-  }
-
-  return <PostFeed initialPosts={posts} />;
+  return (
+    <div>
+      <Link href="/trending" passHref className="w-full mb-3 sm:hidden block">
+        <Button
+          variant="outline"
+          color="primary"
+          className="w-full max-w-xs text-center"
+        >
+          Browse Trending Posts
+        </Button>
+      </Link>
+      <PostFeed initialPosts={posts} />
+    </div>
+  );
 }
