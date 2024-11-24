@@ -1,7 +1,8 @@
 import { Infinite_Scrolling_Pagination_Results } from "@/config";
-import { db } from "@/lib/db";
-import PostFeed from "./PostFeed";
 import { getAuthSession } from "@/lib/auth";
+import { db } from "@/lib/db";
+import { redirect } from "next/navigation";
+import PostFeed from "./PostFeed";
 
 export default async function CustomFeed() {
   const session = await getAuthSession();
@@ -34,6 +35,10 @@ export default async function CustomFeed() {
     },
     take: Infinite_Scrolling_Pagination_Results,
   });
+
+  if (posts.length <= 3) {
+    return redirect("/trending");
+  }
 
   return <PostFeed initialPosts={posts} />;
 }
