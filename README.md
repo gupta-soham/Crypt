@@ -1,36 +1,118 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Crypt
 
-## Getting Started
+Crypt is a web application designed to provide students with a safe and confidential space to discuss academic topics, share insights and connect with a supportive community anonymously. It is specifically built for students to engage in open, honest conversations without revealing their identities.
 
-First, run the development server:
+## Table of Contents
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- 🚀 [Getting Started](#getting-started)
+- ✨ [Features](#features)
+- 📜 [Scripts](#scripts)
+- 🛠 [Technologies Used](#technologies-used)
+- 🤝 [Contributing](#contributing)
+- 📄 [License](#license)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Getting Started
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Prerequisites
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Before you begin, ensure you have the following installed:
 
-## Learn More
+- **Node.js**: Install the latest LTS version from [nodejs.org](https://nodejs.org/)
+- **pnpm**: Install pnpm globally using `npm install -g pnpm`
 
-To learn more about Next.js, take a look at the following resources:
+### Installation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Clone the repository**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+2. **Navigate to the project directory**:
 
-## Deploy on Vercel
+   ```bash
+   cd Crypt
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Install dependencies**:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+   ```bash
+   pnpm install
+   ```
+
+4. **Copy the example environment variables file and configure it**:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   > Rename the `.env.example` file to `.env` and update it with your configuration.
+
+5. **Run the development server**:
+
+   ```bash
+   pnpm dev
+   ```
+
+   The app will be running at [http://localhost:3000](http://localhost:3000).
+
+## ✨ Features
+
+- 🔄 **Infinite scrolling** for dynamically loading posts
+- 🔐 **Authentication** using NextAuth & Google
+- 📰 **Custom feed** for authenticated users
+- ⚡ **Advanced caching** using Upstash Redis
+- 🚀 **Optimistic updates** for a great user experience
+- 📡 **Modern data fetching** using React Query
+- 📝 A **beautiful and highly functional post editor**
+- 🖼️ **Image uploads** & **link previews**
+- 💬 **Full comment functionality** with nested replies
+
+## 📜 Scripts
+
+- **Start Development Server**:
+
+  ```bash
+  pnpm dev
+  ```
+
+- **Build for Production**:
+
+  ```bash
+  pnpm build
+  ```
+
+- **Start Production Server**:
+  ```bash
+  pnpm start
+  ```
+
+## 🛠 Technologies Used
+
+- **Next.js**: React framework for server-rendered applications.
+- **TypeScript**: Type safe superset of JavaScript.
+- **Tailwind CSS**: Utility-first CSS framework.
+- **Prisma**: ORM in conjunction with PostgreSQL DB.
+- **Editor.js**: Block-styled editor for rich text content.
+- **UploadThing**: Simple file uploading solution.
+- **Redis**: Caching backend for post-processing.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request for any improvements. Before contributing, please take a moment to review the guidelines below.
+
+1. **Fork the repository**: Create your own copy of the repository.
+2. **Create a branch**: Create a new branch for each feature or bug fix.
+3. **Make your changes**: Make the necessary changes in your branch.
+4. **Test your changes**: Ensure everything works correctly and build successfully.
+5. **Submit a pull request**: Open a pull request to merge your changes into the main repository.
+
+Please follow the guidelines and make sure your contributions are aligned with the project goals.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+### Any contributions you make will be under the MIT Software License
+
+In short, when you submit code changes, your submissions are understood to be under the same [MIT License](http://choosealicense.com/licenses/mit/) that covers the project. Feel free to contact the maintainers if that's a concern.
+
+---
+
+Made with ❤️ by [Soham Gupta](https://github.com/gupta-soham)
