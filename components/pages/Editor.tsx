@@ -1,4 +1,5 @@
 "use client";
+
 import { toast } from "@/hooks/use-toast";
 import useCustomLoginToast from "@/hooks/useCustomToast";
 import { uploadFiles } from "@/lib/uploadthing";
@@ -73,18 +74,41 @@ export default function Editor({ subgroupId }: { subgroupId: string }) {
             class: ImageTool,
             config: {
               uploader: {
+                // upload to uploadthing
                 async uploadByFile(file: File) {
-                  // upload to uploadthing
-                  const [res] = await uploadFiles("imageUploader", {
-                    files: [file],
-                  });
+                  try {
+                    const result = await uploadFiles("imageUploader", {
+                      files: [file],
+                    });
+                    if (result && result[0] && result[0].url) {
+                      toast({
+                        title: "Image uploaded! 🎉",
+                        description: "Your image was uploaded successfully.",
+                      });
 
-                  return {
-                    success: 1,
-                    file: {
-                      url: res.url,
-                    },
-                  };
+                      return {
+                        success: 1,
+                        file: {
+                          url: result[0].url,
+                        },
+                      };
+                    }
+                    throw new Error("Upload failed");
+                  } catch (error) {
+                    console.error("Upload error:", error);
+                    toast({
+                      title: "Image upload failed!",
+                      description:
+                        "There was a problem uploading your image. Please try again.",
+                      variant: "destructive",
+                    });
+                    return {
+                      success: 0,
+                      file: {
+                        url: "",
+                      },
+                    };
+                  }
                 },
               },
             },
