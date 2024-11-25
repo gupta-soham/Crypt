@@ -57,6 +57,7 @@ Before you begin, ensure you have the following installed:
 - 🔄 **Infinite scrolling** for dynamically loading posts
 - 🔐 **Authentication** using NextAuth & Google
 - 📰 **Custom feed** for authenticated users
+- 🔥**Trending feed** for featured posts
 - ⚡ **Advanced caching** using Upstash Redis
 - 🚀 **Optimistic updates** for a great user experience
 - 📡 **Modern data fetching** using React Query
