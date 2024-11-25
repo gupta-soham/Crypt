@@ -10,9 +10,27 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Crypt",
+  metadataBase: new URL("https://crypt-media.vercel.app"),
+  title: {
+    default: "Crypt",
+    template: `%s | Crypt`,
+  },
   description:
     "Crypt offers students a confidential space to discuss academics, share insights, and connect with a supportive community anonymously.",
+  openGraph: {
+    description:
+      "Crypt offers students a confidential space to discuss academics, share insights, and connect with a supportive community anonymously.",
+    images: ["/og.png"],
+    url: "https://crypt-media.vercel.app",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Crypt",
+    description:
+      "Crypt offers students a confidential space to discuss academics, share insights, and connect with a supportive community anonymously.",
+    creator: "@sohamgpt",
+    images: ["/og.png"],
+  },
 };
 
 export default async function RootLayout({
