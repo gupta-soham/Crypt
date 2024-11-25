@@ -1,4 +1,4 @@
-import PostFeed from "@/components/pages/PostFeed";
+import TrendingPostFeed from "@/components/pages/TrendingPostFeed";
 import { Infinite_Scrolling_Pagination_Results } from "@/config";
 import { db } from "@/lib/db";
 
@@ -34,9 +34,9 @@ export default async function TrendingPage() {
   });
 
   return (
-    <div className="container mx-auto py-8">
+    <div className="flex flex-col h-screen gap-3 p-2 mt-5">
       <h1 className="text-3xl font-bold mb-6">Trending Posts</h1>
-      <PostFeed initialPosts={trendingPosts} />
+      <TrendingPostFeed initialPosts={trendingPosts} />
     </div>
   );
 }
